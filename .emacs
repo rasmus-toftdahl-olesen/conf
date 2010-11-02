@@ -276,10 +276,7 @@
 ;; ~/.emacs.private should contain something like:
 ;;           (setq rcirc-authinfo '(("irc.freenode.net" nickserv "<nick>" "<password>")))
 (if (file-exists-p "~/.emacs.private")
-    (load-file "~/.emacs.private")
-  (load-file "~/../.emacs.private")
-  )
-
+    (load-file "~/.emacs.private"))
 
 (defun trac-wiki-auto-mode-function ()
   (if (and (eq major-mode 'text-mode)
