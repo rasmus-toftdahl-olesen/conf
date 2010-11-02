@@ -9,6 +9,7 @@
 (byte-recompile-directory (expand-file-name "~/.emacs.d"))
 (extend-load-path "~/.emacs.d")
 (extend-load-path "~/.emacs.d/el-get/el-get")
+(extend-load-path "~/.emacs.d/el-get/package")
 (extend-load-path "~/.emacs.d/el-get/rcirc-groups")
 (extend-load-path "~/.emacs.d/el-get/csharp-mode")
 
@@ -28,9 +29,10 @@
         ))
 
 (require 'el-get nil t)
-(require 'package nil t)
+(if (require 'package nil t)
+    (package-initialize))
+
 (require 'css-mode nil t)
-(require 'findr nil t)
 (require 'findr nil t)
 (require 'csharp-mode nil t)
 (require 'php-mode nil t)
