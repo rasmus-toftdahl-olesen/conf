@@ -16,6 +16,7 @@
 (setq el-get-sources
       '((:name el-get)
         (:name package)
+        (:name nxhtml)
         (:name css-mode :type elpa)
         (:name findr :type elpa)
         (:name rcirc-groups
@@ -45,6 +46,11 @@
 (require 'apt-utils nil t)
 
 (require 'cc-mode)
+
+(if (file-exists-p "~/.emacs.d/el-get/nxhtml")
+    (progn
+      (load-file "~/.emacs.d/el-get/nxhtml/autostart.el")
+      (setq muamo-background-colors nil)))
 
 (setq win32 (string= system-type "windows-nt"))
 (setq sequanto (string= system-name "RTO"))
@@ -291,10 +297,10 @@
 (server-start)
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(font-lock-doc-face ((t (:foreground "DarkRed"))))
  '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "cyan4"))))
@@ -303,11 +309,12 @@
  '(rcirc-url ((t (:foreground "blue" :underline t :weight bold)))))
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(debian-changelog-mailing-address "halfdan@halfdans.net" t)
+ '(diff-switches "-u")
  '(display-time-mode t)
  '(findr-skip-file-regexp "^[#\\.]|^.*~")
  '(font-lock-global-modes t)
