@@ -12,6 +12,8 @@
 (extend-load-path "~/.emacs.d/el-get/package")
 (extend-load-path "~/.emacs.d/el-get/rcirc-groups")
 (extend-load-path "~/.emacs.d/el-get/csharp-mode")
+(extend-load-path "~/.emacs.d/el-get/cmake-mode")
+(extend-load-path "~/.emacs.d/el-get/iss-mode")
 
 (setq el-get-sources
       '((:name el-get)
@@ -26,6 +28,14 @@
         (:name csharp-mode
                :type svn
                :url "http://csharpmode.googlecode.com/svn/trunk/"
+               )
+        (:name cmake-mode
+               :type http
+               :url "http://www.cmake.org/CMakeDocs/cmake-mode.el"
+               )
+        (:name iss-mode
+               :type http
+               :url "http://www.xsteve.at/prg/emacs/iss-mode.el"
                )
         ))
 
@@ -100,9 +110,6 @@
 (setq w3-default-homepage "http://halfdans.net")
                                         ;(add-hook 'text-mode-hook 'auto-fill-mode)
 (add-hook 'text-mode-hook 'flyspell-mode)
-
-(setq dabbrev-case-fold-search nil)
-(global-set-key "\M- " 'dabbrev-expand)
 
 (add-hook 'rcirc-print-hooks 'my-rcirc-print-hook)
 (defun my-rcirc-print-hook (process sender response target text)
