@@ -14,11 +14,13 @@
 (extend-load-path "~/.emacs.d/el-get/csharp-mode")
 (extend-load-path "~/.emacs.d/el-get/cmake-mode")
 (extend-load-path "~/.emacs.d/el-get/iss-mode")
+(extend-load-path "~/.emacs.d/el-get/undo-tree")
 
 (setq el-get-sources
       '((:name el-get)
         (:name package)
         (:name nxhtml)
+        (:name undo-tree)
         (:name css-mode :type elpa)
         (:name findr :type elpa)
         (:name rcirc-groups
@@ -54,6 +56,10 @@
 (require 'epg nil t)
 (require 'vc-bzr nil t)
 (require 'apt-utils nil t)
+(if (require 'undo-tree nil t)
+    (progn
+      (global-set-key (kbd "C-_") 'undo-tree-undo)
+      (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
 
 (require 'cc-mode)
 
