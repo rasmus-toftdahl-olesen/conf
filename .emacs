@@ -337,5 +337,6 @@
  '(inhibit-startup-screen t)
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
+ '(starttls-extra-arguments (quote ("--insecure")))
  '(tags-add-tables (quote ask-user))
  '(visible-bell t))
