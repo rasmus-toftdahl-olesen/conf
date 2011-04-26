@@ -15,12 +15,15 @@
 (extend-load-path "~/.emacs.d/el-get/cmake-mode")
 (extend-load-path "~/.emacs.d/el-get/iss-mode")
 (extend-load-path "~/.emacs.d/el-get/undo-tree")
+(extend-load-path "~/.emacs.d/el-get/qmake-mode")
+(extend-load-path "~/.emacs.d/el-get/color-theme")
 
 (setq el-get-sources
       '((:name el-get)
         (:name package)
         (:name nxhtml)
         (:name undo-tree)
+        (:name color-theme)
         (:name css-mode :type elpa)
         (:name findr :type elpa)
         (:name rcirc-groups
@@ -39,6 +42,10 @@
                :type http
                :url "http://www.xsteve.at/prg/emacs/iss-mode.el"
                )
+        (:name qmake-mode
+               :type http
+               :url "http://qmake-mode.googlecode.com/hg/qmake.el"
+               )
         ))
 
 (require 'el-get nil t)
@@ -55,6 +62,7 @@
 (require 'automation-mode nil t)
 (require 'epg nil t)
 (require 'vc-bzr nil t)
+(require 'qmake-mode nil t)
 (require 'apt-utils nil t)
 (if (require 'undo-tree nil t)
     (progn
@@ -67,6 +75,12 @@
     (progn
       (load-file "~/.emacs.d/el-get/nxhtml/autostart.el")
       (setq muamo-background-colors nil)))
+
+(if (require 'color-theme nil t)
+    (progn
+      (color-theme-initialize)
+      (setq color-theme-is-global t)
+      (color-theme-calm-forest)))
 
 (setq win32 (string= system-type "windows-nt"))
 (setq sequanto (string= system-name "RTO"))
@@ -96,8 +110,15 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
+(add-to-list 'auto-mode-alist '("\\.cmd\\'" . sh-mode))
 
-                                        ; Use flyspell in html-mode
+(if win32
+    (progn
+      (add-hook 'sh-mode-hook
+                '(lambda () (sh-set-shell "cmd")))
+      (set-face-font 'default "Consolas-9")))
+
+; Use flyspell in html-mode
 (add-hook 'html-mode-hook
           '(lambda () (flyspell-mode)))
 
@@ -244,6 +265,11 @@
           ispell-program-name "c:/Programmer/Aspell/bin/aspell.exe"
           python-python-command "c:\\\\python25\\\\pythonw.exe"
           gud-pdb-command-name "c:\\\\python25\\\\pythonw.exe"
+          ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe"
+          ps-printer-name t
+          ps-printer-name-option nil
+          ps-lpr-switches '("-query")
+          ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd)
           )))
 
 ;; Enhanced syntax highlighting 
@@ -307,6 +333,12 @@
 (add-hook 'find-file-hook
           'trac-wiki-auto-mode-function)
 
+(if (file-exists-p (concat (getenv "ProgramFiles") "/SeqZap/emacs/seqzap-textual-script-mode.el"))
+    (load-file (concat (getenv "ProgramFiles") "/SeqZap/emacs/seqzap-textual-script-mode.el")))
+
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
 (server-start)
 
 (custom-set-faces
@@ -314,10 +346,10 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
- '(font-lock-doc-face ((t (:foreground "DarkRed"))))
- '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "cyan4"))))
- '(font-lock-type-face ((((class color) (min-colors 88) (background light)) (:foreground "ForestGreen"))))
+; '(default ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+; '(font-lock-doc-face ((t (:foreground "DarkRed"))))
+; '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "cyan4"))))
+; '(font-lock-type-face ((((class color) (min-colors 88) (background light)) (:foreground "ForestGreen"))))
  '(rcirc-dim-nick ((t (:inherit default :foreground "gray"))))
  '(rcirc-url ((t (:foreground "blue" :underline t :weight bold)))))
 
