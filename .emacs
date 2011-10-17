@@ -80,10 +80,15 @@
     (progn
       (color-theme-initialize)
       (setq color-theme-is-global t)
-      (color-theme-calm-forest)))
+      (color-theme-gray30)
+      (setq cursor-color "White")))
 
 (setq win32 (string= system-type "windows-nt"))
 (setq sequanto (string= system-name "RTO"))
+
+(if (and sequanto win32)
+    (load-file "c:/work/sequanto-automation/trunk/emacs/sequanto-automation-mode.el"))
+;       (require 'sequanto-automation-mode))))
 
 (prefer-coding-system 'utf-8)
 
@@ -92,6 +97,7 @@
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
+(setq ido-use-virtual-buffers t) ;; remember past opened files
 
 (setq line-number-mode t)
 (setq display-time-day-and-date t)
@@ -116,7 +122,7 @@
     (progn
       (add-hook 'sh-mode-hook
                 '(lambda () (sh-set-shell "cmd")))
-      (set-face-font 'default "Consolas-9")))
+      (set-face-font 'default "Consolas-10")))
 
 ; Use flyspell in html-mode
 (add-hook 'html-mode-hook
