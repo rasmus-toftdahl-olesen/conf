@@ -1,80 +1,32 @@
-(defun extend-list (list element)
-  "Add an element to a list"
-  (setq list (cons element list)))
+;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
+;(extend-load-path "~/.emacs.d")
 
-(defun extend-load-path (element)
-  "Use this function to extend the load-path with ELEMENT."
-  (setq load-path (cons (expand-file-name element) load-path)))
+(setq desired-packages '(csharp-mode cmake-mode undo-tree
+				     color-theme moinmoin-mode php-mode))
 
-(byte-recompile-directory (expand-file-name "~/.emacs.d"))
-(extend-load-path "~/.emacs.d")
-(extend-load-path "~/.emacs.d/el-get/el-get")
-(extend-load-path "~/.emacs.d/el-get/package")
-(extend-load-path "~/.emacs.d/el-get/rcirc-groups")
-(extend-load-path "~/.emacs.d/el-get/csharp-mode")
-(extend-load-path "~/.emacs.d/el-get/cmake-mode")
-(extend-load-path "~/.emacs.d/el-get/iss-mode")
-(extend-load-path "~/.emacs.d/el-get/undo-tree")
-(extend-load-path "~/.emacs.d/el-get/qmake-mode")
-(extend-load-path "~/.emacs.d/el-get/color-theme")
+; Missing package for: rcirc-groups iss-mode qmake-mode findr epg
 
-(setq el-get-sources
-      '((:name el-get)
-        (:name package)
-        (:name nxhtml)
-        (:name undo-tree)
-        (:name color-theme)
-        (:name css-mode :type elpa)
-        (:name findr :type elpa)
-        (:name rcirc-groups
-               :type emacswiki
-               :url "rcirc-groups.el"
-               )
-        (:name csharp-mode
-               :type svn
-               :url "http://csharpmode.googlecode.com/svn/trunk/"
-               )
-        (:name cmake-mode
-               :type http
-               :url "http://www.cmake.org/CMakeDocs/cmake-mode.el"
-               )
-        (:name iss-mode
-               :type http
-               :url "http://www.xsteve.at/prg/emacs/iss-mode.el"
-               )
-        (:name qmake-mode
-               :type http
-               :url "http://qmake-mode.googlecode.com/hg/qmake.el"
-               )
-        ))
-
-(require 'el-get nil t)
 (if (require 'package nil t)
-    (package-initialize))
+    (progn
+      (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;      (package-refresh-contents)
+;      (dolist (package desired-packages)
+;	      (package-install package))
+      ))
 
-(require 'css-mode nil t)
-(require 'findr nil t)
-(require 'csharp-mode nil t)
-(require 'php-mode nil t)
-(require 'html-helper-mode nil t)
 (require 'iss-mode nil t)
-(require 'cmake-mode nil t)
+(require 'apt-utils nil t)
+;(require 'html-helper-mode nil t)
 (require 'automation-mode nil t)
 (require 'epg nil t)
 (require 'vc-bzr nil t)
-(require 'qmake-mode nil t)
-(require 'apt-utils nil t)
+
 (if (require 'undo-tree nil t)
     (progn
       (global-set-key (kbd "C-_") 'undo-tree-undo)
       (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
 
 (require 'cc-mode)
-
-(if (file-exists-p "~/.emacs.d/el-get/nxhtml")
-    (progn
-      (load-file "~/.emacs.d/el-get/nxhtml/autostart.el")
-      (setq muamo-background-colors nil)))
 
 (if (require 'color-theme nil t)
     (progn
@@ -92,7 +44,7 @@
 
 (prefer-coding-system 'utf-8)
 
-(tool-bar-mode)
+(tool-bar-mode -1)
 
 (require 'ido)
 (ido-mode t)
@@ -352,10 +304,6 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
-; '(default ((t (:stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
-; '(font-lock-doc-face ((t (:foreground "DarkRed"))))
-; '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "cyan4"))))
-; '(font-lock-type-face ((((class color) (min-colors 88) (background light)) (:foreground "ForestGreen"))))
  '(rcirc-dim-nick ((t (:inherit default :foreground "gray"))))
  '(rcirc-url ((t (:foreground "blue" :underline t :weight bold)))))
 
@@ -364,6 +312,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(browse-url-browser-function (quote browse-url-generic))
+ '(browse-url-generic-program "chromium-browser")
  '(debian-changelog-mailing-address "halfdan@halfdans.net" t)
  '(diff-switches "-u")
  '(display-time-mode t)
@@ -371,6 +321,8 @@
  '(font-lock-global-modes t)
  '(fortran-tab-mode-default nil)
  '(global-font-lock-mode t)
+ '(gnus-auto-subscribed-groups "^nnml\\|^nnfolder\\|^nnmbox\\|^nnmh\\|^nnbabyl\\|^nnmaildir|^nnimap")
+ '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-hierarchically))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
