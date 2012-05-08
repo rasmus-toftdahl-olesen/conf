@@ -8,11 +8,12 @@
 
 (if (require 'package nil t)
     (progn
-      (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-;      (package-refresh-contents)
-;      (dolist (package desired-packages)
-;	      (package-install package))
-      ))
+      (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))))
+
+;;;
+;;; Eval the next line (C-x C-e) to install the default packages;
+;;;
+;;; (progn (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
 
 (require 'iss-mode nil t)
 (require 'apt-utils nil t)
@@ -20,7 +21,7 @@
 (require 'automation-mode nil t)
 (require 'epg nil t)
 (require 'vc-bzr nil t)
-
+(require 'qmake-mode nil t)
 (if (require 'undo-tree nil t)
     (progn
       (global-set-key (kbd "C-_") 'undo-tree-undo)
@@ -203,9 +204,8 @@
                    (not (string= (rcirc-server-name process) sender)))
           (start-process "notify" nil "notify-send" (concat "rcirc: " sender) text)))
       
-      (setq browse-url-browser-function (quote browse-url-epiphany)
-            browse-url-epiphany-arguments (quote ("-n"))
-            browse-url-epiphany-startup-arguments (quote ("-n"))
+      (setq browse-url-browser-function (quote browse-url-generic)
+            browse-url-generic-program "chromium-browser"
             debian-changelog-mailing-address "halfdan@halfdans.net"))
   
   (progn 
@@ -228,6 +228,8 @@
           ps-printer-name-option nil
           ps-lpr-switches '("-query")
           ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd)
+          archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so"))
+          python-python-command "c:\\\\python26\\\\pythonw.exe"
           )))
 
 ;; Enhanced syntax highlighting 
@@ -291,9 +293,6 @@
 (add-hook 'find-file-hook
           'trac-wiki-auto-mode-function)
 
-(if (file-exists-p (concat (getenv "ProgramFiles") "/SeqZap/emacs/seqzap-textual-script-mode.el"))
-    (load-file (concat (getenv "ProgramFiles") "/SeqZap/emacs/seqzap-textual-script-mode.el")))
-
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
@@ -312,8 +311,6 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(browse-url-browser-function (quote browse-url-generic))
- '(browse-url-generic-program "chromium-browser")
  '(debian-changelog-mailing-address "halfdan@halfdans.net" t)
  '(diff-switches "-u")
  '(display-time-mode t)
@@ -321,8 +318,6 @@
  '(font-lock-global-modes t)
  '(fortran-tab-mode-default nil)
  '(global-font-lock-mode t)
- '(gnus-auto-subscribed-groups "^nnml\\|^nnfolder\\|^nnmbox\\|^nnmh\\|^nnbabyl\\|^nnmaildir|^nnimap")
- '(gnus-subscribe-newsgroup-method (quote gnus-subscribe-hierarchically))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
