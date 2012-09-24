@@ -1,14 +1,17 @@
+(setq w32-get-true-file-attributes nil)
+
 ;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
 ;(extend-load-path "~/.emacs.d")
 
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
-				     color-theme moinmoin-mode php-mode))
+                         color-theme moinmoin-mode php-mode))
 
 ; Missing package for: rcirc-groups iss-mode qmake-mode findr epg
 
 (if (require 'package nil t)
     (progn
-      (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))))
+      (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+      (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))))
 
 ;;;
 ;;; Eval the next line (C-x C-e) to install the default packages;
@@ -37,10 +40,10 @@
       (setq cursor-color "White")))
 
 (setq win32 (string= system-type "windows-nt"))
-(setq sequanto (string= system-name "RTO"))
+(setq cim (string= "U12-30-08-01" system-name))
 
-(if (and sequanto win32)
-    (load-file "c:/work/sequanto-automation/trunk/emacs/sequanto-automation-mode.el"))
+;(if (and cim win32)
+;    (load-file "c:/work/sequanto-automation/trunk/emacs/sequanto-automation-mode.el"))
 ;       (require 'sequanto-automation-mode))))
 
 (prefer-coding-system 'utf-8)
@@ -170,7 +173,7 @@
 
 (global-set-key [f5] 'toggle-php-html-mode)
 
-(if sequanto
+(if cim
     (progn
       (setq c-site-default-style "k&r")
       (setq c-basic-offset 3)
@@ -220,7 +223,7 @@
     (setq diff-command "c:/Programmer/GnuWin32/bin/diff.exe"
           ediff-diff-program "c:/Programmer/GnuWin32/bin/diff.exe"
           ediff-diff3-program "c:/Programmer/GnuWin32/bin/diff3.exe"
-          ispell-program-name "c:/Programmer/Aspell/bin/aspell.exe"
+          ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe"
           python-python-command "c:\\\\python25\\\\pythonw.exe"
           gud-pdb-command-name "c:\\\\python25\\\\pythonw.exe"
           ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe"
@@ -229,8 +232,7 @@
           ps-lpr-switches '("-query")
           ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd)
           archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so"))
-          python-python-command "c:\\\\python26\\\\pythonw.exe"
-          )))
+          python-python-command "c:\\\\python26\\\\pythonw.exe")))
 
 ;; Enhanced syntax highlighting 
 ;; Currently support for []|&!.+=-/%*,()<>{}
