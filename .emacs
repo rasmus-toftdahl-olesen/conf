@@ -16,7 +16,7 @@
 ;;;
 ;;; Eval the next line (C-x C-e) to install the default packages;
 ;;;
-;;; (progn (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
+;;; (progn (package-initialize) (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
 
 (require 'iss-mode nil t)
 (require 'apt-utils nil t)
