@@ -4,7 +4,7 @@
 ;(extend-load-path "~/.emacs.d")
 
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
-                         color-theme moinmoin-mode php-mode))
+                         moinmoin-mode php-mode))
 
 ; Missing package for: rcirc-groups iss-mode qmake-mode findr epg
 
@@ -32,12 +32,10 @@
 
 (require 'cc-mode)
 
-(if (require 'color-theme nil t)
-    (progn
-      (color-theme-initialize)
-      (setq color-theme-is-global t)
-      (color-theme-gray30)
-      (setq cursor-color "White")))
+(load-theme 'tango-dark)
+(custom-theme-set-faces
+ 'tango-dark
+ '(font-lock-comment-face ((t (:foreground "#ff4b4b")))))
 
 (setq win32 (string= system-type "windows-nt"))
 (setq cim (string= "U12-30-08-01" system-name))
