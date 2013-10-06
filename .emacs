@@ -268,6 +268,17 @@
 (defun up-slightly () (interactive) (scroll-up 5))
 (defun down-slightly () (interactive) (scroll-down 5))
 
+(defun halfdan-eval-and-replace ()
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(global-set-key (kbd "C-c e") 'halfdan-eval-end-replace)
+
 (defadvice rcirc-format-response-string (after dim-entire-line)
   "Dim whole line for senders whose nick matches `rcirc-dim-nicks'."
   (when (and rcirc-dim-nicks sender
