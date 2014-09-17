@@ -6,7 +6,7 @@
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
                          php-mode magit findr))
 
-;; Missing package for: rcirc-groups iss-mode qmake-mode findr epg
+;; Missing package for: rcirc-groups iss-mode qmake-mode epg
 
 (if (require 'package nil t)
     (progn
