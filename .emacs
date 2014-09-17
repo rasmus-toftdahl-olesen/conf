@@ -1,12 +1,12 @@
 (setq w32-get-true-file-attributes nil)
 
-;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
-;(extend-load-path "~/.emacs.d")
+;;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
+;;(extend-load-path "~/.emacs.d")
 
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
-                         moinmoin-mode php-mode))
+                         php-mode magit findr))
 
-; Missing package for: rcirc-groups iss-mode qmake-mode findr epg
+;; Missing package for: rcirc-groups iss-mode qmake-mode findr epg
 
 (if (require 'package nil t)
     (progn
@@ -26,7 +26,7 @@ before-save-hook, and that might be bad."
   (interactive)
   (untabify (point-min) (point-max))
   (delete-trailing-whitespace)
-;  (set-buffer-file-coding-system 'utf-8)
+  ;; (set-buffer-file-coding-system 'utf-8)
   )
 
 ;; Various superfluous white-space. Just say no.
@@ -47,7 +47,7 @@ Including indent-buffer, which should not be called automatically on save."
 ;;; (progn (package-initialize) (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
 (require 'iss-mode nil t)
 (require 'apt-utils nil t)
-;(require 'html-helper-mode nil t)
+;;(require 'html-helper-mode nil t)
 (require 'automation-mode nil t)
 (require 'epg nil t)
 (require 'vc-bzr nil t)
@@ -58,6 +58,7 @@ Including indent-buffer, which should not be called automatically on save."
       (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
 
 (require 'cc-mode)
+(require 'cmake-mode nil t)
 
 (load-theme 'tango-dark)
 (custom-theme-set-faces
@@ -70,7 +71,7 @@ Including indent-buffer, which should not be called automatically on save."
 (if (and cim win32)
     (progn
       (load-file "c:/work/sequanto-automation/emacs/sequanto-automation-mode.el")
-;      (require 'sequanto-automation-mode)
+      ;; (require 'sequanto-automation-mode)
       (add-to-list 'auto-mode-alist '("\\.automation\\'" . sequanto-automation-mode))))
 
 (prefer-coding-system 'utf-8)
@@ -92,6 +93,9 @@ Including indent-buffer, which should not be called automatically on save."
 (setq dabbrev-case-fold-search nil)
 (global-set-key "\M- " 'dabbrev-expand)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward uniquify-separator ":")
+
 (add-to-list 'auto-mode-alist '("\\.szs\\'" . xml-mode))
 (add-to-list 'auto-mode-alist '("\\.SeqZapProject\\'" . xml-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
@@ -107,7 +111,7 @@ Including indent-buffer, which should not be called automatically on save."
                 '(lambda () (sh-set-shell "cmd")))
       (set-face-font 'default "Consolas-10")))
 
-; Use flyspell in html-mode
+                                        ; Use flyspell in html-mode
 (add-hook 'html-mode-hook
           '(lambda () (flyspell-mode)))
 
@@ -125,7 +129,7 @@ Including indent-buffer, which should not be called automatically on save."
 
 (setq w3-default-homepage "http://halfdans.net")
                                         ;(add-hook 'text-mode-hook 'auto-fill-mode)
-;(add-hook 'text-mode-hook 'flyspell-mode)
+                                        ;(add-hook 'text-mode-hook 'flyspell-mode)
 
 (add-hook 'rcirc-print-hooks 'my-rcirc-print-hook)
 (defun my-rcirc-print-hook (process sender response target text)
@@ -245,21 +249,7 @@ Including indent-buffer, which should not be called automatically on save."
       (when (and (string-match (rcirc-nick process) text)
                  (not (string= (rcirc-nick process) sender))
                  (not (string= (rcirc-server-name process) sender)))
-        (start-process "notify" nil "WinNotify" (concat "rcirc: " sender) text)))
-
-    (setq diff-command "c:/Programmer/GnuWin32/bin/diff.exe"
-          ediff-diff-program "c:/Programmer/GnuWin32/bin/diff.exe"
-          ediff-diff3-program "c:/Programmer/GnuWin32/bin/diff3.exe"
-          ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe"
-          python-python-command "c:\\\\python25\\\\pythonw.exe"
-          gud-pdb-command-name "c:\\\\python25\\\\pythonw.exe"
-          ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe"
-          ps-printer-name t
-          ps-printer-name-option nil
-          ps-lpr-switches '("-query")
-          ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd)
-          archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so"))
-          python-python-command "c:\\\\python26\\\\pythonw.exe")))
+        (start-process "notify" nil "WinNotify" (concat "rcirc: " sender) text)))))
 
 ;; Enhanced syntax highlighting
 ;; Currently support for []|&!.+=-/%*,()<>{}
@@ -344,15 +334,15 @@ nothing but whitespace between them.  It then indents the markup
 by using nxml's indentation rules."
   (interactive "r")
   (save-excursion
-      (nxml-mode)
-      (goto-char begin)
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-        (backward-char) (insert "\n"))
-      (indent-region begin end))
-    (message "Ah, much better!"))
+    (nxml-mode)
+    (goto-char begin)
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+      (backward-char) (insert "\n"))
+    (indent-region begin end))
+  (message "Ah, much better!"))
 
 (defun xml-pretty-print-xml
-    (xml-pretty-print-xml-region 0 (buffer-size)))
+  (xml-pretty-print-xml-region 0 (buffer-size)))
 
 (server-start)
 
@@ -389,7 +379,14 @@ by using nxml's indentation rules."
 
 (if win32
     (custom-set-variables
-      '(diff-command "c:/GnuWin32/bin/diff.exe")
-      '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
-      '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
-      '(vc-git-program "c:\\users\\rto.cim\\appdata\\local\\github\\PortableGit_6d98349f44ba975cf6c762a720f8259a267ea445\\bin\\git.exe")))
+     '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
+     '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
+     '(ps-printer-name t)
+     '(ps-printer-name-option nil)
+     '(ps-lpr-switches '("-query"))
+     '(ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd))
+     '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
+     '(diff-command "c:/GnuWin32/bin/diff.exe")
+     '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
+     '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
+     '(vc-git-program "c:\\users\\rto.cim\\appdata\\local\\github\\PortableGit_6d98349f44ba975cf6c762a720f8259a267ea445\\bin\\git.exe")))
