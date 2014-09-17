@@ -13,11 +13,38 @@
       (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
       (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))))
 
+(global-unset-key (kbd "C-x C-c"))
+(global-unset-key (kbd "C-x C-z"))
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+;;; From
+;;; http://whattheemacsd.com//buffer-defuns.el-01.html
+(defun cleanup-buffer-safe ()
+  "Perform a bunch of safe operations on the whitespace content of a buffer.
+Does not indent buffer, because it is used for a
+before-save-hook, and that might be bad."
+  (interactive)
+  (untabify (point-min) (point-max))
+  (delete-trailing-whitespace)
+;  (set-buffer-file-coding-system 'utf-8)
+  )
+
+;; Various superfluous white-space. Just say no.
+(add-hook 'before-save-hook 'cleanup-buffer-safe)
+
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer.
+Including indent-buffer, which should not be called automatically on save."
+  (interactive)
+  (cleanup-buffer-safe)
+  (indent-region (point-min) (point-max)))
+
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
 ;;;
 ;;; Eval the next line (C-x C-e) to install the default packages;
 ;;;
 ;;; (progn (package-initialize) (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
-
 (require 'iss-mode nil t)
 (require 'apt-utils nil t)
 ;(require 'html-helper-mode nil t)
@@ -186,7 +213,7 @@
     (setq default-tab-width 4)
     (setq-default tab-width 4)
     (setq-default c-basic-offset 4)
-    
+
     (setq c-site-default-style "k&r")
     (setq c-basic-offset 4)
     (setq c-brace-imaginary-offset 0)
@@ -198,26 +225,26 @@
 (if (not win32)
     (progn
       (add-hook 'rcirc-print-hooks 'my-rcirc-print-hook)
-      
+
       (defun my-rcirc-print-hook (process sender response target text)
         (when (and (string-match (rcirc-nick process) text)
                    (not (string= (rcirc-nick process) sender))
                    (not (string= (rcirc-server-name process) sender)))
           (start-process "notify" nil "notify-send" (concat "rcirc: " sender) text)))
-      
+
       (setq browse-url-browser-function (quote browse-url-generic)
             browse-url-generic-program "chromium-browser"
             debian-changelog-mailing-address "halfdan@halfdans.net"))
-  
-  (progn 
+
+  (progn
     (add-hook 'rcirc-print-hooks 'my-rcirc-print-hook)
-    
+
     (defun my-rcirc-print-hook (process sender response target text)
       (when (and (string-match (rcirc-nick process) text)
                  (not (string= (rcirc-nick process) sender))
                  (not (string= (rcirc-server-name process) sender)))
         (start-process "notify" nil "WinNotify" (concat "rcirc: " sender) text)))
-    
+
     (setq diff-command "c:/Programmer/GnuWin32/bin/diff.exe"
           ediff-diff-program "c:/Programmer/GnuWin32/bin/diff.exe"
           ediff-diff3-program "c:/Programmer/GnuWin32/bin/diff3.exe"
@@ -232,7 +259,7 @@
           archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so"))
           python-python-command "c:\\\\python26\\\\pythonw.exe")))
 
-;; Enhanced syntax highlighting 
+;; Enhanced syntax highlighting
 ;; Currently support for []|&!.+=-/%*,()<>{}
 (font-lock-add-keywords
  'c++-mode '(("\\(\\[\\|\\]\\|[|!\\.\\+\\=\\&]\\|-\\|\\/\\|\\%\\|\\*\\|,\\|(\\|)\\|>\\ |<\\|{\\|}\\)" 1 font-lock-operator-face )
@@ -307,21 +334,42 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
+(defun xml-pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+        (backward-char) (insert "\n"))
+      (indent-region begin end))
+    (message "Ah, much better!"))
+
+(defun xml-pretty-print-xml
+    (xml-pretty-print-xml-region 0 (buffer-size)))
+
 (server-start)
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(rcirc-dim-nick ((t (:inherit default :foreground "gray"))))
  '(rcirc-url ((t (:foreground "blue" :underline t :weight bold)))))
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(csharp-want-flymake-fixup nil)
+ '(csharp-want-imenu nil)
+ '(csharp-want-yasnippet-fixup nil)
  '(debian-changelog-mailing-address "halfdan@halfdans.net" t)
  '(diff-switches "-u")
  '(display-time-mode t)
