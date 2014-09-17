@@ -67,9 +67,11 @@ Including indent-buffer, which should not be called automatically on save."
 (setq win32 (string= system-type "windows-nt"))
 (setq cim (string= "U12-30-08-01" system-name))
 
-;(if (and cim win32)
-;    (load-file "c:/work/sequanto-automation/trunk/emacs/sequanto-automation-mode.el"))
-;       (require 'sequanto-automation-mode))))
+(if (and cim win32)
+    (progn
+      (load-file "c:/work/sequanto-automation/emacs/sequanto-automation-mode.el")
+;      (require 'sequanto-automation-mode)
+      (add-to-list 'auto-mode-alist '("\\.automation\\'" . sequanto-automation-mode))))
 
 (prefer-coding-system 'utf-8)
 
@@ -123,7 +125,7 @@ Including indent-buffer, which should not be called automatically on save."
 
 (setq w3-default-homepage "http://halfdans.net")
                                         ;(add-hook 'text-mode-hook 'auto-fill-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
+;(add-hook 'text-mode-hook 'flyspell-mode)
 
 (add-hook 'rcirc-print-hooks 'my-rcirc-print-hook)
 (defun my-rcirc-print-hook (process sender response target text)
@@ -321,15 +323,15 @@ Including indent-buffer, which should not be called automatically on save."
 (if (file-exists-p "~/.emacs.private")
     (load-file "~/.emacs.private"))
 
-(defun trac-wiki-auto-mode-function ()
-  (if (and (eq major-mode 'text-mode)
-           (member (file-name-extension (buffer-file-name))
-                   '("txt" "wiki"))
-           (re-search-forward "^=+ [^=\n]+ =+\\s *$" nil t))
-      (trac-wiki-mode)))
+;; (defun trac-wiki-auto-mode-function ()
+;;   (if (and (eq major-mode 'text-mode)
+;;            (member (file-name-extension (buffer-file-name))
+;;                    '("txt" "wiki"))
+;;            (re-search-forward "^=+ [^=\n]+ =+\\s *$" nil t))
+;;       (tracwiki-mode)))
 
-(add-hook 'find-file-hook
-          'trac-wiki-auto-mode-function)
+;; (add-hook 'find-file-hook
+;;           'trac-wiki-auto-mode-function)
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
@@ -384,3 +386,10 @@ by using nxml's indentation rules."
  '(starttls-extra-arguments (quote ("--insecure")))
  '(tags-add-tables (quote ask-user))
  '(visible-bell t))
+
+(if win32
+    (custom-set-variables
+      '(diff-command "c:/GnuWin32/bin/diff.exe")
+      '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
+      '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
+      '(vc-git-program "c:\\users\\rto.cim\\appdata\\local\\github\\PortableGit_6d98349f44ba975cf6c762a720f8259a267ea445\\bin\\git.exe")))
