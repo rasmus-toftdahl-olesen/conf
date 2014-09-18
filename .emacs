@@ -4,7 +4,7 @@
 ;;(extend-load-path "~/.emacs.d")
 
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
-                         php-mode magit findr))
+                                     php-mode magit findr))
 
 ;; Missing package for: rcirc-groups iss-mode qmake-mode epg
 
@@ -378,15 +378,18 @@ by using nxml's indentation rules."
  '(visible-bell t))
 
 (if win32
-    (custom-set-variables
-     '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
-     '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
-     '(ps-printer-name t)
-     '(ps-printer-name-option nil)
-     '(ps-lpr-switches '("-query"))
-     '(ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd))
-     '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
-     '(diff-command "c:/GnuWin32/bin/diff.exe")
-     '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
-     '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
-     '(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe"))))
+    (progn
+      ; Emacs sets HOME to %HOMEPATH%\AppData\Roaming for some reason
+      (setenv "HOME" (getenv "HOMEPATH"))
+      (custom-set-variables
+       '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
+       '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
+       '(ps-printer-name t)
+       '(ps-printer-name-option nil)
+       '(ps-lpr-switches '("-query"))
+       '(ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd))
+       '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
+       '(diff-command "c:/GnuWin32/bin/diff.exe")
+       '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
+       '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
+       '(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
