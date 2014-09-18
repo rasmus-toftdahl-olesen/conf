@@ -389,4 +389,4 @@ by using nxml's indentation rules."
      '(diff-command "c:/GnuWin32/bin/diff.exe")
      '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
      '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
-     '(vc-git-program "c:\\users\\rto.cim\\appdata\\local\\github\\PortableGit_6d98349f44ba975cf6c762a720f8259a267ea445\\bin\\git.exe")))
+     '(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe"))))
