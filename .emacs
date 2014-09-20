@@ -4,7 +4,7 @@
 ;;(extend-load-path "~/.emacs.d")
 
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
-                                     php-mode magit findr))
+                            php-mode magit findr editorconfig))
 
 ;; Missing package for: rcirc-groups iss-mode qmake-mode epg
 
@@ -59,7 +59,7 @@ Including indent-buffer, which should not be called automatically on save."
 
 (require 'cc-mode)
 (require 'cmake-mode nil t)
-
+(load "editorconfig")
 (load-theme 'tango-dark)
 (custom-theme-set-faces
  'tango-dark
