@@ -77,6 +77,7 @@ Including indent-buffer, which should not be called automatically on save."
 (prefer-coding-system 'utf-8)
 
 (tool-bar-mode -1)
+(which-function-mode)
 
 (require 'ido)
 (ido-mode t)
