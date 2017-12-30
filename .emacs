@@ -16,7 +16,7 @@
 ;;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
 ;;(extend-load-path "~/.emacs.d")
 
-(setq desired-packages '(csharp-mode cmake-mode undo-tree
+(setq desired-packages '(csharp-mode cmake-mode
                                      php-mode magit findr editorconfig
                                      iss-mode rcirc-groups))
 
@@ -63,10 +63,10 @@ Including indent-buffer, which should not be called automatically on save."
 (require 'epg nil t)
 (require 'vc-bzr nil t)
 (require 'qmake-mode nil t)
-(if (require 'undo-tree nil t)
-    (progn
-      (global-set-key (kbd "C-_") 'undo-tree-undo)
-      (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
+;(if (require 'undo-tree nil t)
+;    (progn
+;      (global-set-key (kbd "C-_") 'undo-tree-undo)
+;      (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
 
 (require 'cc-mode)
 (require 'cmake-mode nil t)
