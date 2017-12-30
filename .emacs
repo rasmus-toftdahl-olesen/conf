@@ -1,17 +1,32 @@
+;;; First thing to do is set up the package repositories
+;;; Skip down to the "INSTALL DESIRED" part for an easy way to install the desired packages
+
+(require 'package) ;; You might already have this line
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
+  (add-to-list 'package-archives (cons "melpa" url) t))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+
 (setq w32-get-true-file-attributes nil)
 
 ;;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
 ;;(extend-load-path "~/.emacs.d")
 
 (setq desired-packages '(csharp-mode cmake-mode undo-tree
-                            php-mode magit findr editorconfig))
+                                     php-mode magit findr editorconfig
+                                     iss-mode rcirc-groups))
 
-;; Missing package for: rcirc-groups iss-mode qmake-mode epg
+;; Missing package for: qmake-mode epg
 
-(if (require 'package nil t)
-    (progn
-      (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-      (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))))
+;;; INSTALL DESIRED
+;;;
+;;; Eval the next line (C-x C-e) to install the desired packages;
+;;;
+;;; (progn (package-initialize) (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
 
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-x C-z"))
@@ -41,10 +56,6 @@ Including indent-buffer, which should not be called automatically on save."
 
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
-;;;
-;;; Eval the next line (C-x C-e) to install the default packages;
-;;;
-;;; (progn (package-initialize) (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
 (require 'iss-mode nil t)
 (require 'apt-utils nil t)
 ;;(require 'html-helper-mode nil t)
@@ -59,7 +70,7 @@ Including indent-buffer, which should not be called automatically on save."
 
 (require 'cc-mode)
 (require 'cmake-mode nil t)
-(load "editorconfig")
+(require 'editorconfig)
 (load-theme 'tango-dark)
 (custom-theme-set-faces
  'tango-dark
