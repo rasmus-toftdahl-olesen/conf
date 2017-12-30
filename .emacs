@@ -383,6 +383,7 @@ by using nxml's indentation rules."
  '(global-font-lock-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(python-shell-interpreter "/usr/bin/python3")
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
  '(starttls-extra-arguments (quote ("--insecure")))
