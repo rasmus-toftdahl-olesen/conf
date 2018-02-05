@@ -393,7 +393,7 @@ by using nxml's indentation rules."
 (if win32
     (progn
       ; Emacs sets HOME to %HOMEPATH%\AppData\Roaming for some reason
-      (setenv "HOME" (getenv "HOMEPATH"))
+      ;(setenv "HOME" (getenv "HOMEPATH"))
       (custom-set-variables
        '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
        '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
@@ -401,8 +401,8 @@ by using nxml's indentation rules."
        '(ps-printer-name-option nil)
        '(ps-lpr-switches '("-query"))
        '(ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd))
-       '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
-       '(diff-command "c:/GnuWin32/bin/diff.exe")
-       '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
-       '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
-       '(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
+       '(archive-zip-extract (quote ("c:\\program files\\7-zip\\7z.exe" "e" "-so"))))))
+       ;'(diff-command "c:/GnuWin32/bin/diff.exe")
+       ;'(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
+       ;'(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t))))
+       ;'(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
