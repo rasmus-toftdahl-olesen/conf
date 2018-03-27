@@ -152,59 +152,6 @@ Including indent-buffer, which should not be called automatically on save."
              (not (string= (rcirc-server-name process) sender)))
     (start-process "notify" nil "notify-send" (concat "rcirc: " sender) text)))
 
-(if (require 'mk-project nil t)
-    (progn
-      (project-def "seqzap.com-trunk"
-                   '((basedir          "c:/work/web/seqzap.com/trunk/")
-                     (src-patterns     ("*.html"))
-                     (ignore-patterns  ("build"))
-                     (tags-file        "~/.mk-project/seqzap.com-trunk/TAGS")
-                     (file-list-cache  "~/.mk-project/seqzap.com-trunk/files")
-                     (open-files-cache "~/.mk-project/seqzap.com-trunk/open-files")
-                     (vcs              svn)
-                     (compile-cmd      "generate.py")
-                     (ack-args         "")
-                     (startup-hook     nil)
-                     (shutdown-hook    nil)))
-
-      (project-def "activation-server"
-                   '((basedir          "c:/work/web/activation_sequanto_com/")
-                     (src-patterns     ("*.py" "*.html"))
-                                        ;               (ignore-patterns  ("build"))
-                     (tags-file        "~/.mk-project/activation-server/TAGS")
-                     (file-list-cache  "~/.mk-project/activation-server/files")
-                     (open-files-cache "~/.mk-project/activation-server/open-files")
-                     (vcs              svn)
-                                        ;               (compile-cmd      "generate.py")
-                     (ack-args         "")
-                     (startup-hook     nil)
-                     (shutdown-hook    nil)))
-
-      (project-def "seqzap-trunk"
-                   '((basedir          "c:/work/seqzap/trunk/")
-                     (src-patterns     ("*.cs"))
-                                        ;               (ignore-patterns  ("build"))
-                     (tags-file        "~/.mk-project/seqzap-trunk/TAGS")
-                     (file-list-cache  "~/.mk-project/seqzap-trunk/files")
-                     (open-files-cache "~/.mk-project/seqzap-trunk/open-files")
-                     (vcs              svn)
-                                        ;               (compile-cmd      "generate.py")
-                     (ack-args         "")
-                     (startup-hook     nil)
-                     (shutdown-hook    nil)))
-
-      (global-set-key (kbd "C-c p c") 'project-compile)
-      (global-set-key (kbd "C-c p g") 'project-grep)
-      (global-set-key (kbd "C-c p a") 'project-ack)
-      (global-set-key (kbd "C-c p l") 'project-load)
-      (global-set-key (kbd "C-c p u") 'project-unload)
-      (global-set-key (kbd "C-c p f") 'project-find-file) ; or project-find-file-ido
-      (global-set-key (kbd "C-c p i") 'project-index)
-      (global-set-key (kbd "C-c p s") 'project-status)
-      (global-set-key (kbd "C-c p h") 'project-home)
-      (global-set-key (kbd "C-c p d") 'project-dired)
-      (global-set-key (kbd "C-c p t") 'project-tags)))
-
 (defun my-java-project-startup ()
   (setq c-basic-offset 3))
 
