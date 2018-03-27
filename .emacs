@@ -39,16 +39,17 @@
 Does not indent buffer, because it is used for a
 before-save-hook, and that might be bad."
   (interactive)
+  ;(if (not (eq "makefile-gmake-mode" major-mode))
+      ;(progn
   (untabify (point-min) (point-max))
-  (delete-trailing-whitespace)
-  ;; (set-buffer-file-coding-system 'utf-8)
-  )
+  (delete-trailing-whitespace))
 
 ;; Various superfluous white-space. Just say no.
 (add-hook 'before-save-hook 'cleanup-buffer-safe)
+;(remove-hook 'before-save-hook 'cleanup-buffer-safe)
 
 (defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer.
+ "Perform a bunch of operations on the whitespace content of a buffer.
 Including indent-buffer, which should not be called automatically on save."
   (interactive)
   (cleanup-buffer-safe)
