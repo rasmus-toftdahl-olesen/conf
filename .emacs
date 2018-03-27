@@ -117,6 +117,7 @@ Including indent-buffer, which should not be called automatically on save."
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.forge\\'" . python-mode))
 
 (if win32
     (progn
@@ -388,17 +389,8 @@ by using nxml's indentation rules."
  '(global-font-lock-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
- '(package-selected-packages
-   (quote
-    (p4 rcirc-groups php-mode magit iss-mode findr editorconfig csharp-mode cmake-mode)))
- '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
- '(ps-lpr-switches (quote ("-query")))
- '(ps-printer-name t)
- '(ps-printer-name-option nil)
- '(ps-right-header
-   (quote
-    ("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd)))
+ '(matlab-fill-code nil)
+ '(python-shell-interpreter "/usr/bin/python3")
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
  '(starttls-extra-arguments (quote ("--insecure")))
