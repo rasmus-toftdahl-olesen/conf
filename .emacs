@@ -18,7 +18,7 @@
 
 (setq desired-packages '(csharp-mode cmake-mode
                                      php-mode magit findr editorconfig
-                                     iss-mode rcirc-groups))
+                                     iss-mode rcirc-groups p4))
 
 ;; Missing package for: qmake-mode epg
 
@@ -71,6 +71,7 @@ Including indent-buffer, which should not be called automatically on save."
 (require 'cc-mode)
 (require 'cmake-mode nil t)
 (require 'editorconfig)
+(require 'p4 nil t)
 (load-theme 'tango-dark)
 (custom-theme-set-faces
  'tango-dark
@@ -371,19 +372,33 @@ by using nxml's indentation rules."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
  '(csharp-want-flymake-fixup nil)
  '(csharp-want-imenu nil)
  '(csharp-want-yasnippet-fixup nil)
  '(debian-changelog-mailing-address "halfdan@halfdans.net" t)
+ '(diff-command "c:/GnuWin32/bin/diff.exe")
  '(diff-switches "-u")
  '(display-time-mode t)
+ '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
+ '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
  '(findr-skip-file-regexp "^[#\\.]|^.*~")
  '(font-lock-global-modes t)
  '(fortran-tab-mode-default nil)
  '(global-font-lock-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(python-shell-interpreter "/usr/bin/python3")
+ '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
+ '(package-selected-packages
+   (quote
+    (p4 rcirc-groups php-mode magit iss-mode findr editorconfig csharp-mode cmake-mode)))
+ '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
+ '(ps-lpr-switches (quote ("-query")))
+ '(ps-printer-name t)
+ '(ps-printer-name-option nil)
+ '(ps-right-header
+   (quote
+    ("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd)))
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
  '(starttls-extra-arguments (quote ("--insecure")))
@@ -401,8 +416,8 @@ by using nxml's indentation rules."
        '(ps-printer-name-option nil)
        '(ps-lpr-switches '("-query"))
        '(ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd))
-       '(archive-zip-extract (quote ("c:\\program files\\7-zip\\7z.exe" "e" "-so"))))))
-       ;'(diff-command "c:/GnuWin32/bin/diff.exe")
-       ;'(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
-       ;'(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t))))
+       '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
+       '(diff-command "c:/GnuWin32/bin/diff.exe")
+       '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
+       '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t))))
        ;'(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
