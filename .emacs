@@ -63,10 +63,10 @@ Including indent-buffer, which should not be called automatically on save."
 (require 'epg nil t)
 (require 'vc-bzr nil t)
 (require 'qmake-mode nil t)
-;(if (require 'undo-tree nil t)
-;    (progn
-;      (global-set-key (kbd "C-_") 'undo-tree-undo)
-;      (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
+                                        ;(if (require 'undo-tree nil t)
+                                        ;    (progn
+                                        ;      (global-set-key (kbd "C-_") 'undo-tree-undo)
+                                        ;      (global-set-key (kbd "C-x u") 'undo-tree-visualize)))
 
 (require 'cc-mode)
 (require 'cmake-mode nil t)
@@ -78,13 +78,6 @@ Including indent-buffer, which should not be called automatically on save."
  '(font-lock-comment-face ((t (:foreground "#ff4b4b")))))
 
 (setq win32 (string= system-type "windows-nt"))
-(setq cim (string= "U12-30-08-01" system-name))
-
-(if (and cim win32)
-    (progn
-      (load-file "c:/work/sequanto-automation/emacs/sequanto-automation-mode.el")
-      ;; (require 'sequanto-automation-mode)
-      (add-to-list 'auto-mode-alist '("\\.automation\\'" . sequanto-automation-mode))))
 
 (prefer-coding-system 'utf-8)
 
@@ -165,29 +158,19 @@ Including indent-buffer, which should not be called automatically on save."
 
 (global-set-key [f5] 'toggle-php-html-mode)
 
-(if cim
-    (progn
-      (setq c-site-default-style "k&r")
-      (setq c-basic-offset 3)
-      (setq c-brace-imaginary-offset 0)
-      (setq-default indent-tabs-mode nil)
-      (c-set-offset 'statement-cont 3)
-      (c-set-offset 'substatement-open 0)
-      (c-set-offset 'inline-open 0))
+(progn
+  (setq tab-width 4)
+  (setq default-tab-width 4)
+  (setq-default tab-width 4)
+  (setq-default c-basic-offset 4)
 
-  (progn
-    (setq tab-width 4)
-    (setq default-tab-width 4)
-    (setq-default tab-width 4)
-    (setq-default c-basic-offset 4)
-
-    (setq c-site-default-style "k&r")
-    (setq c-basic-offset 4)
-    (setq c-brace-imaginary-offset 0)
-    (setq-default indent-tabs-mode nil)
-    (c-set-offset 'statement-cont 4)
-    (c-set-offset 'inline-open 0)
-    (c-set-offset 'substatement-open 0)))
+  (setq c-site-default-style "k&r")
+  (setq c-basic-offset 4)
+  (setq c-brace-imaginary-offset 0)
+  (setq-default indent-tabs-mode nil)
+  (c-set-offset 'statement-cont 4)
+  (c-set-offset 'inline-open 0)
+  (c-set-offset 'substatement-open 0))
 
 (if (not win32)
     (progn
@@ -303,7 +286,7 @@ by using nxml's indentation rules."
   (message "Ah, much better!"))
 
 (defun xml-pretty-print-xml
-  (xml-pretty-print-xml-region 0 (buffer-size)))
+    (xml-pretty-print-xml-region 0 (buffer-size)))
 
 (server-start)
 
@@ -346,8 +329,8 @@ by using nxml's indentation rules."
 
 (if win32
     (progn
-      ; Emacs sets HOME to %HOMEPATH%\AppData\Roaming for some reason
-      ;(setenv "HOME" (getenv "HOMEPATH"))
+                                        ; Emacs sets HOME to %HOMEPATH%\AppData\Roaming for some reason
+                                        ;(setenv "HOME" (getenv "HOMEPATH"))
       (custom-set-variables
        '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
        '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
@@ -359,4 +342,4 @@ by using nxml's indentation rules."
        '(diff-command "c:/GnuWin32/bin/diff.exe")
        '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
        '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t))))
-       ;'(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
+                                        ;'(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
