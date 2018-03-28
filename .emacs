@@ -31,6 +31,10 @@
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-x C-z"))
 (global-set-key (kbd "RET") 'newline-and-indent)
+(defun exit-emacs ()
+  "Save buffers and exit emacs (does what C-x C-c would normally do)."
+  (interactive)
+  (save-buffers-kill-terminal))
 
 ;;; From
 ;;; http://whattheemacsd.com//buffer-defuns.el-01.html
