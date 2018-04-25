@@ -116,6 +116,7 @@ Including indent-buffer, which should not be called automatically on save."
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
 (add-to-list 'auto-mode-alist '("\\.cmd\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.forge\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.autopilot\\'" . python-mode))
 
 (if win32
     (progn
@@ -324,6 +325,7 @@ by using nxml's indentation rules."
  '(global-font-lock-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(matlab-case-level (quote (4 . 4)))
  '(matlab-fill-code nil)
  '(python-shell-interpreter "/usr/bin/python3")
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
