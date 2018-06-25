@@ -327,6 +327,9 @@ by using nxml's indentation rules."
  '(inhibit-startup-screen t)
  '(matlab-case-level (quote (4 . 4)))
  '(matlab-fill-code nil)
+ '(package-selected-packages
+   (quote
+    (atomic-chrome yaml-mode rcirc-groups php-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
  '(python-shell-interpreter "/usr/bin/python3")
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
@@ -339,14 +342,4 @@ by using nxml's indentation rules."
                                         ; Emacs sets HOME to %HOMEPATH%\AppData\Roaming for some reason
                                         ;(setenv "HOME" (getenv "HOMEPATH"))
       (custom-set-variables
-       '(ispell-program-name "c:/Program files (x86)/Aspell/bin/aspell.exe")
-       '(ps-lpr-command "c:/programmer/gs/gsview/gsview/gsprint.exe")
-       '(ps-printer-name t)
-       '(ps-printer-name-option nil)
-       '(ps-lpr-switches '("-query"))
-       '(ps-right-header '("/pagenumberstring load" ps-time-stamp-yyyy-mon-dd))
-       '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
-       '(diff-command "c:/GnuWin32/bin/diff.exe")
-       '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
-       '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t))))
-                                        ;'(vc-git-program (concat (car (directory-files (concat (getenv "LOCALAPPDATA") "\\github") t "PortableGit_.*")) "\\bin\\git.exe")))))
+       '(archive-zip-extract (quote ("c:\\Program files (x86)\\7-zip\\7z.exe" "e" "-so"))))))
