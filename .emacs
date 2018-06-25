@@ -104,6 +104,8 @@ Including indent-buffer, which should not be called automatically on save."
 (setq dabbrev-case-fold-search nil)
 (global-set-key "\M- " 'dabbrev-expand)
 
+(global-set-key (kbd "M-o") 'ace-window)
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward uniquify-separator ":")
 
@@ -296,6 +298,9 @@ by using nxml's indentation rules."
 
 (server-start)
 
+(require 'atomic-chrome)
+(atomic-chrome-start-server)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -329,7 +334,7 @@ by using nxml's indentation rules."
  '(matlab-fill-code nil)
  '(package-selected-packages
    (quote
-    (atomic-chrome yaml-mode rcirc-groups php-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
+    (ace-window atomic-chrome yaml-mode rcirc-groups php-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
  '(python-shell-interpreter "/usr/bin/python3")
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
