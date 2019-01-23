@@ -28,6 +28,9 @@
                          iss-mode
                          p4
                          yaml-mode
+                         elpy
+                         flycheck
+                         py-autopep8
                          atomic-chrome))
 
 ;; Missing package for: qmake-mode epg
@@ -281,6 +284,20 @@ by using nxml's indentation rules."
 
 (require 'atomic-chrome)
 (atomic-chrome-start-server)
+
+;;;
+;;; Python
+;;;
+
+; Use elpy
+(elpy-enable)
+; Combine elpy and flycheck
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+; Add py-autopep8 to elpy
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
