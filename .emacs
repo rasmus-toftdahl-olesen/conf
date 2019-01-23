@@ -2,6 +2,7 @@
 ;;; Skip down to the "INSTALL DESIRED" part for an easy way to install the desired packages
 
 (require 'package) ;; You might already have this line
+
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
@@ -10,23 +11,33 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
-
 (setq w32-get-true-file-attributes nil)
 
 ;;(byte-recompile-directory (expand-file-name "~/.emacs.d"))
 ;;(extend-load-path "~/.emacs.d")
 
-(setq desired-packages '(csharp-mode cmake-mode
-                                     php-mode magit findr editorconfig
-                                     iss-mode rcirc-groups p4))
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(setq desired-packages '(csharp-mode
+                         cmake-mode
+                         better-defaults
+                         magit
+                         findr
+                         editorconfig
+                         iss-mode
+                         p4
+                         yaml-mode
+                         atomic-chrome))
 
 ;; Missing package for: qmake-mode epg
 
-;;; INSTALL DESIRED
-;;;
-;;; Eval the next line (C-x C-e) to install the desired packages;
-;;;
-;;; (progn (package-initialize) (package-refresh-contents) (dolist (package desired-packages) (package-install package)))
+(mapc #'(lambda (package)
+    (unless (package-installed-p package)
+      (package-install package)))
+      desired-packages)
+
+(require 'better-defaults)
 
 (global-unset-key (kbd "C-x C-c"))
 (global-unset-key (kbd "C-x C-z"))
@@ -86,19 +97,12 @@ Including indent-buffer, which should not be called automatically on save."
 
 (prefer-coding-system 'utf-8)
 
-(tool-bar-mode -1)
 (which-function-mode)
-
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t) ;; enable fuzzy matching
-(setq ido-use-virtual-buffers t) ;; remember past opened files
 
 (setq line-number-mode t)
 (setq display-time-day-and-date t)
 (setq display-time-24hrs-format t)
 (setq visible-bell t)
-(show-paren-mode 1)
 (display-time)
 
 (setq dabbrev-case-fold-search nil)
@@ -111,7 +115,6 @@ Including indent-buffer, which should not be called automatically on save."
 
 (add-to-list 'auto-mode-alist '("\\.szs\\'" . xml-mode))
 (add-to-list 'auto-mode-alist '("\\.SeqZapProject\\'" . xml-mode))
-(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.iss\\'" . iss-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
@@ -130,12 +133,6 @@ Including indent-buffer, which should not be called automatically on save."
 (add-hook 'html-mode-hook
           '(lambda () (flyspell-mode)))
 
-                                        ; vtl-mode
-(autoload 'turn-on-vtl-mode "vtl" nil t)
-(add-hook 'html-mode-hook 'turn-on-vtl-mode t t)
-(add-hook 'xml-mode-hook 'turn-on-vtl-mode t t)
-(add-hook 'text-mode-hook 'turn-on-vtl-mode t t)
-
 (setq tab-width 3)
 (setq default-tab-width 3)
 
@@ -146,25 +143,9 @@ Including indent-buffer, which should not be called automatically on save."
                                         ;(add-hook 'text-mode-hook 'auto-fill-mode)
                                         ;(add-hook 'text-mode-hook 'flyspell-mode)
 
-(add-hook 'rcirc-print-hooks 'my-rcirc-print-hook)
-(defun my-rcirc-print-hook (process sender response target text)
-  (when (and (string-match (rcirc-nick process) text)
-             (not (string= (rcirc-nick process) sender))
-             (not (string= (rcirc-server-name process) sender)))
-    (start-process "notify" nil "notify-send" (concat "rcirc: " sender) text)))
-
 (defun my-java-project-startup ()
   (setq c-basic-offset 3))
 
-(defun toggle-php-html-mode ()
-  (interactive)
-  "Toggle mode between PHP & HTML Helper modes"
-  (cond ((string= mode-name "HTML helper")
-         (php-mode))
-        ((string= mode-name "PHP")
-         (html-helper-mode))))
-
-(global-set-key [f5] 'toggle-php-html-mode)
 
 (progn
   (setq tab-width 4)
@@ -293,7 +274,7 @@ by using nxml's indentation rules."
     (indent-region begin end))
   (message "Ah, much better!"))
 
-(defun xml-pretty-print-xml
+(defun xml-pretty-print-xml ()
     (xml-pretty-print-xml-region 0 (buffer-size)))
 
 (server-start)
@@ -314,16 +295,11 @@ by using nxml's indentation rules."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(archive-zip-extract (quote ("c:\\programmer\\7-zip\\7z.exe" "e" "-so")))
  '(csharp-want-flymake-fixup nil)
  '(csharp-want-imenu nil)
  '(csharp-want-yasnippet-fixup nil)
  '(debian-changelog-mailing-address "halfdan@halfdans.net" t)
- '(diff-command "c:/GnuWin32/bin/diff.exe")
- '(diff-switches "-u")
  '(display-time-mode t)
- '(ediff-diff-program "c:/GnuWin32/bin/diff.exe" t)
- '(ediff-diff3-program "c:/GnuWin32/bin/diff3.exe" t)
  '(findr-skip-file-regexp "^[#\\.]|^.*~")
  '(font-lock-global-modes t)
  '(fortran-tab-mode-default nil)
@@ -334,8 +310,7 @@ by using nxml's indentation rules."
  '(matlab-fill-code nil)
  '(package-selected-packages
    (quote
-    (ace-window atomic-chrome yaml-mode rcirc-groups php-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
- '(python-shell-interpreter "/usr/bin/python3")
+    (ace-window atomic-chrome yaml-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
  '(starttls-extra-arguments (quote ("--insecure")))
