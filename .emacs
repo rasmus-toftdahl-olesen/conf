@@ -31,6 +31,7 @@
                          elpy
                          flycheck
                          py-autopep8
+                         org
                          atomic-chrome))
 
 ;; Missing package for: qmake-mode epg
@@ -280,8 +281,6 @@ by using nxml's indentation rules."
 (defun xml-pretty-print-xml ()
     (xml-pretty-print-xml-region 0 (buffer-size)))
 
-(server-start)
-
 (require 'atomic-chrome)
 (atomic-chrome-start-server)
 
@@ -299,13 +298,13 @@ by using nxml's indentation rules."
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(rcirc-dim-nick ((t (:inherit default :foreground "gray"))))
- '(rcirc-url ((t (:foreground "blue" :underline t :weight bold)))))
+;;;
+;;; Work
+;;;
+; Use alternative theme on my windows work laptop to make it easy to
+; distinguish it when alt-tab'ing
+(if (string= (system-name) "DK-C-KBN-RTOL-1")
+    (load-theme 'leuven t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -325,6 +324,8 @@ by using nxml's indentation rules."
  '(inhibit-startup-screen t)
  '(matlab-case-level (quote (4 . 4)))
  '(matlab-fill-code nil)
+ '(org-agenda-files (quote ("c:/Users/rtol/Dropbox/Rasmus/todo.org")))
+ '(org-log-done (quote time))
  '(package-selected-packages
    (quote
     (ace-window atomic-chrome yaml-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
@@ -339,4 +340,17 @@ by using nxml's indentation rules."
                                         ; Emacs sets HOME to %HOMEPATH%\AppData\Roaming for some reason
                                         ;(setenv "HOME" (getenv "HOMEPATH"))
       (custom-set-variables
-       '(archive-zip-extract (quote ("c:\\Program files (x86)\\7-zip\\7z.exe" "e" "-so"))))))
+       '(archive-zipn-extract (quote ("c:\\Program files (x86)\\7-zip\\7z.exe" "e" "-so"))))))
+
+(defun rtol-open-todo ()
+    (interactive)(find-file (car org-agenda-files)))
+
+(defun rtol-open-todo-tree ()
+  (interactive)
+  (rtol-open-todo)
+  (call-interactively 'org-show-todo-tree))
+
+(global-set-key (kbd "<f2>") 'rtol-open-todo)
+(global-set-key (kbd "<f3>") 'rtol-open-todo-tree)
+
+(server-start)
