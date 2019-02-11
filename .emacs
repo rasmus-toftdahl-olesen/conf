@@ -324,7 +324,7 @@ by using nxml's indentation rules."
  '(inhibit-startup-screen t)
  '(matlab-case-level (quote (4 . 4)))
  '(matlab-fill-code nil)
- '(org-agenda-files (quote ("c:/Users/rtol/Dropbox/Rasmus/todo.org")))
+ '(org-agenda-files (quote ("c:/Users/rtol/Dropbox/Rasmus/org")))
  '(org-log-done (quote time))
  '(package-selected-packages
    (quote
@@ -343,7 +343,7 @@ by using nxml's indentation rules."
        '(archive-zipn-extract (quote ("c:\\Program files (x86)\\7-zip\\7z.exe" "e" "-so"))))))
 
 (defun rtol-open-todo ()
-    (interactive)(find-file (car org-agenda-files)))
+  (interactive) (org-cycle-agenda-files))
 
 (defun rtol-open-todo-tree ()
   (interactive)
