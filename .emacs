@@ -328,7 +328,7 @@ by using nxml's indentation rules."
  '(org-log-done (quote time))
  '(package-selected-packages
    (quote
-    (ace-window atomic-chrome yaml-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
+    (dockerfile-mode ace-window atomic-chrome yaml-mode p4 magit iss-mode findr editorconfig csharp-mode cmake-mode)))
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
  '(show-paren-mode t)
  '(starttls-extra-arguments (quote ("--insecure")))
