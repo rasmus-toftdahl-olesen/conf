@@ -352,5 +352,12 @@ by using nxml's indentation rules."
 
 (global-set-key (kbd "<f2>") 'rtol-open-todo)
 (global-set-key (kbd "<f3>") 'rtol-open-todo-tree)
+(global-set-key (kbd "<f4>") 'magit-status)
 
 (server-start)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
